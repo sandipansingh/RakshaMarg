@@ -2,9 +2,7 @@ import React, { useMemo, useRef } from 'react';
 import { useFrame, extend } from '@react-three/fiber';
 import { Instances, Instance, shaderMaterial } from '@react-three/drei';
 import * as THREE from 'three';
-
-const BUILDING_COUNT = 500;
-const CAR_COUNT = 40;
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // --- 1. ADVANCED SHIELD SHADER (Hexagon Grid + Pulse) ---
 const ShieldMaterial = shaderMaterial(
@@ -54,25 +52,22 @@ const ShieldMaterial = shaderMaterial(
       float fresnel = pow(1.0 - abs(dot(viewDir, vNormal)), 3.0);
 
       // 2. Hexagon Pattern
-      // Scale the UVs to make the grid smaller/larger
       vec2 gridUv = vUv * 30.0; 
-      // Animate the grid moving slightly
       gridUv.y += uTime * 0.5; 
       float grid = hex(gridUv);
-      // Make the grid lines thin and sharp
       float gridLine = smoothstep(0.05, 0.0, grid);
 
-      // 3. Scanline Pulse (Vertical wave)
-      float scanline = smoothstep(0.0, 0.5, sin(vWorldPosition.y * 0.5 - uTime * 2.0));
+      // 3. Scanline Pulse REMOVED as per previous request
+      float scanline = 0.0;
 
       // Combine Effects
-      // Base opacity (fresnel) + Grid lines + Scanline pulse
-      float alpha = (fresnel * 1.5) + (gridLine * 0.4) + (scanline * 0.1);
+      float alpha = (fresnel * 1.5) + (gridLine * 0.4);
       
-      // Color mixing: Core color vs Rim color
+      // Color mixing
       vec3 finalColor = mix(uColor, uRimColor, fresnel);
 
-      gl_FragColor = vec4(finalColor, alpha * 0.6); // 0.6 Master Opacity
+      // Reduced Master Opacity
+      gl_FragColor = vec4(finalColor, alpha * 0.2); 
     }
   `
 );
@@ -81,13 +76,21 @@ extend({ ShieldMaterial });
 
 // --- 2. MAIN CITY COMPONENT ---
 export const CityMap = () => {
+  const isMobile = useIsMobile();
+
+  // OPTIMIZATION: Drastically reduce counts on mobile
+  // Mobile: 60 buildings / 10 cars
+  // Desktop: 500 buildings / 40 cars
+  const buildingCount = isMobile ? 60 : 500;
+  const carCount = isMobile ? 10 : 40;
+
   // Generate Buildings & Cars
   const { buildings, cars } = useMemo(() => {
     const buildingData = [];
     const carData = [];
 
     // Reduce spread slightly to keep city dense around the shield
-    for (let i = 0; i < BUILDING_COUNT; i++) {
+    for (let i = 0; i < buildingCount; i++) {
       const h = Math.random() * 4 + 1;
       const w = Math.random() * 1.5 + 0.5;
       const d = Math.random() * 1.5 + 0.5;
@@ -97,14 +100,14 @@ export const CityMap = () => {
       buildingData.push({ x, z, h, w, d });
     }
 
-    for (let i = 0; i < CAR_COUNT; i++) {
+    for (let i = 0; i < carCount; i++) {
         const speed = Math.random() * 0.1 + 0.05;
         const lane = (Math.random() > 0.5 ? 2.5 : -2.5);
         const offset = Math.random() * 100;
         carData.push({ speed, lane, offset });
     }
     return { buildings: buildingData, cars: carData };
-  }, []);
+  }, [buildingCount, carCount]);
 
   return (
     <group>
@@ -162,9 +165,7 @@ const Shield = () => {
 
   return (
     <group position={[0, 0, 0]}>
-       {/* DOME
-          Radius reduced to 10 so camera (at z=12) sees the outside.
-       */}
+       {/* DOME */}
       <mesh position={[0, 0, 0]}>
         <sphereGeometry args={[10, 64, 64, 0, Math.PI * 2, 0, Math.PI / 2]} />
         {/* @ts-ignore */}
@@ -174,8 +175,8 @@ const Shield = () => {
             depthWrite={false} 
             side={THREE.DoubleSide} 
             blending={THREE.AdditiveBlending} 
-            uColor={new THREE.Color("#6366f1")} // Purple Core
-            uRimColor={new THREE.Color("#a5b4fc")} // White-ish Rim
+            uColor={new THREE.Color("#6366f1")} 
+            uRimColor={new THREE.Color("#a5b4fc")} 
         />
       </mesh>
       
@@ -188,7 +189,7 @@ const Shield = () => {
   );
 };
 
-// TRAFFIC COMPONENT (Unchanged)
+// TRAFFIC COMPONENT
 const TrafficLines = ({ cars }: { cars: any[] }) => {
     const groupRef = useRef<THREE.Group>(null);
     useFrame((state) => {

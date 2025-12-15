@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Menu, X } from 'lucide-react';
+import { Shield, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -18,7 +23,7 @@ const Navbar = () => {
     { name: 'Home', path: '/' },
     { name: 'Check Route', path: '/check-route' },
     { name: 'How It Works', path: '/#how-it-works' },
-    { name: 'Inspiration', path: '#' }, // Added Inspiration placeholder
+    { name: 'Inspiration', path: '#' },
   ];
 
   return (
@@ -50,7 +55,7 @@ const Navbar = () => {
                 to={item.path}
                 className="text-sm font-medium text-white/70 hover:text-white transition-colors"
                 onClick={(e) => {
-                  if (item.path === '#') e.preventDefault(); // Prevent scroll jump for placeholder
+                  if (item.path === '#') e.preventDefault();
                 }}
               >
                 {item.name}
@@ -58,7 +63,7 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* CTA - Changed to About Us with external link */}
+          {/* CTA - Desktop Only */}
           <div className="hidden md:block">
             <a 
               href="https://dna-coded.github.io/About-Us/" 
@@ -71,10 +76,60 @@ const Navbar = () => {
             </a>
           </div>
 
-          {/* Mobile Toggle */}
-          <button className="md:hidden text-white" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-            {isMobileMenuOpen ? <X /> : <Menu />}
-          </button>
+          {/* Mobile Menu (Sheet) */}
+          <div className="md:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
+                  <Menu className="h-6 w-6" />
+                  <span className="sr-only">Toggle menu</span>
+                </Button>
+              </SheetTrigger>
+              
+              {/* z-[100] ensures the sheet sits on top of the navbar (which is z-50).
+                 bg-[#0a0a0a] matches your dark theme.
+              */}
+              <SheetContent side="left" className="w-[300px] bg-[#0a0a0a] border-r border-white/10 text-white z-[100]">
+                <SheetHeader className="mb-8 text-left">
+                  <SheetTitle>
+                    <Link to="/" className="flex items-center gap-2">
+                      <div className="bg-brand-purple/20 p-2 rounded-lg">
+                        <Shield className="w-5 h-5 text-brand-purple" />
+                      </div>
+                      <span className="font-display text-xl font-bold text-white">
+                        Raksha<span className="text-brand-purple">Marg</span>
+                      </span>
+                    </Link>
+                  </SheetTitle>
+                </SheetHeader>
+                
+                <div className="flex flex-col gap-6">
+                  {navItems.map((item) => (
+                    <Link 
+                      key={item.name}
+                      to={item.path}
+                      className="text-lg font-medium text-white/70 hover:text-brand-purple transition-colors"
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                  
+                  {/* Mobile CTA */}
+                  <a 
+                    href="https://dna-coded.github.io/About-Us/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="mt-4"
+                  >
+                    <Button className="w-full bg-brand-purple text-white hover:bg-brand-teal hover:text-brand-dark font-semibold rounded-lg py-6 transition-all duration-300">
+                      About Us
+                    </Button>
+                  </a>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+
         </div>
       </div>
     </nav>

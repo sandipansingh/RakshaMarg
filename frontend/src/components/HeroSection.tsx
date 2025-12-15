@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Shield, ArrowRight, MapPin, Activity } from 'lucide-react';
+import { Shield, ArrowRight, Activity } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
@@ -41,8 +41,7 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-brand-dark/30 mix-blend-multiply z-10" />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent z-20" />
         
-        {/* MAP IMAGE UPDATED: GREY BORDERS & TECHNICAL LOOK */}
-        {/* grayscale-100 removes color, contrast-125 makes lines sharper */}
+        {/* MAP IMAGE */}
         <img 
           src={mapBg} 
           alt="Safety Map Background" 
@@ -77,32 +76,32 @@ const HeroSection = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="flex items-center gap-3 mb-8"
+            className="flex items-center gap-3 mb-6 md:mb-8"
           >
-            <div className="flex items-center gap-2 px-4 py-2 bg-brand-purple/10 backdrop-blur-md border border-brand-purple/30 rounded-full text-brand-purple shadow-[0_0_15px_rgba(99,102,241,0.3)]">
-              <Activity className="w-4 h-4 animate-pulse" />
-              <span className="text-xs font-bold tracking-[0.2em] uppercase">System Online</span>
+            <div className="flex items-center gap-2 px-3 py-1 md:px-4 md:py-2 bg-brand-purple/10 backdrop-blur-md border border-brand-purple/30 rounded-full text-brand-purple shadow-[0_0_15px_rgba(99,102,241,0.3)]">
+              <Activity className="w-3 h-3 md:w-4 md:h-4 animate-pulse" />
+              <span className="text-[0.6rem] md:text-xs font-bold tracking-[0.2em] uppercase">System Online</span>
             </div>
           </motion.div>
 
-          {/* Title */}
-          <div className="overflow-hidden mb-6 pb-4">
+          {/* Title - RESPONSIVE SIZES ADDED */}
+          <div className="overflow-hidden mb-4 md:mb-6 pb-2 md:pb-4">
             <motion.h1 
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display text-7xl md:text-[9rem] font-bold text-white leading-none tracking-tighter"
+              className="font-display text-5xl sm:text-7xl md:text-[9rem] font-bold text-white leading-[0.9] tracking-tighter"
             >
               Raksha<span className="text-brand-purple">Marg</span>
             </motion.h1>
           </div>
           
-          <div className="flex flex-col md:flex-row gap-10 items-start md:items-end">
+          <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-start md:items-end">
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8 }}
-              className="text-lg md:text-xl text-white/70 max-w-lg font-light leading-relaxed border-l-2 border-brand-teal/50 pl-6"
+              className="text-base md:text-xl text-white/70 max-w-lg font-light leading-relaxed border-l-2 border-brand-teal/50 pl-4 md:pl-6"
             >
                Navigate the night with intelligence. Real-time route analysis, 
                predictive safety scoring, and a community watching over you.
@@ -118,11 +117,11 @@ const HeroSection = () => {
               <Link to="/check-route">
                 <Button 
                   size="xl" 
-                  className="h-20 px-10 rounded-full bg-brand-purple text-white hover:bg-brand-teal hover:text-brand-dark font-bold text-lg shadow-[0_0_30px_rgba(99,102,241,0.4)] transition-all duration-500 group"
+                  className="h-14 md:h-20 px-6 md:px-10 rounded-full bg-brand-purple text-white hover:bg-brand-teal hover:text-brand-dark font-bold text-base md:text-lg shadow-[0_0_30px_rgba(99,102,241,0.4)] transition-all duration-500 group"
                 >
                   Analyze Route
-                  <div className="ml-3 w-10 h-10 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-brand-dark/20 transition-colors">
-                    <ArrowRight className="w-5 h-5" />
+                  <div className="ml-3 w-8 h-8 md:w-10 md:h-10 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-brand-dark/20 transition-colors">
+                    <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
                   </div>
                 </Button>
               </Link>
@@ -132,6 +131,7 @@ const HeroSection = () => {
       </div>
 
       {/* --- LAYER 4: FLOATING HUD & IMAGES (Right Side) --- */}
+      {/* Hidden on mobile (lg:flex) to prevent overlap */}
       <motion.div 
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0 }}
@@ -156,7 +156,6 @@ const HeroSection = () => {
                 </AnimatePresence>
              </div>
              <div>
-                {/* CHANGED: Verified -> Secured */}
                 <div className="text-xl font-bold text-white">Secured</div>
                 <div className="text-xs text-white/50 uppercase tracking-wider">Active Personnel</div>
              </div>
