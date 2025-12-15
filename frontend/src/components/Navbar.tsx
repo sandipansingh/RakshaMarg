@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Menu } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import {
@@ -9,6 +9,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+// Ensure logo.png is exactly in frontend/src/assets/logo.png
+import logo from '@/assets/logo.png';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -37,11 +39,17 @@ const Navbar = () => {
             : 'bg-transparent'
         }`}>
           
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="bg-brand-purple/20 p-2 rounded-lg">
-              <Shield className="w-5 h-5 text-brand-purple" />
-            </div>
+          {/* --- LOGO SECTION --- */}
+          <Link to="/" className="flex items-center gap-3">
+            {/* Logo Image */}
+            <img 
+              src={logo} 
+              alt="Logo" 
+              className="h-10 w-auto object-contain" 
+            />
+            
+            {/* Text restored so it is visible. 
+                No background color wrapper is used here. */}
             <span className="font-display text-xl font-bold text-white">
               Raksha<span className="text-brand-purple">Marg</span>
             </span>
@@ -63,7 +71,7 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* CTA - Desktop Only */}
+          {/* CTA Button */}
           <div className="hidden md:block">
             <a 
               href="https://dna-coded.github.io/About-Us/" 
@@ -76,7 +84,7 @@ const Navbar = () => {
             </a>
           </div>
 
-          {/* Mobile Menu (Sheet) */}
+          {/* Mobile Menu */}
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
@@ -86,16 +94,15 @@ const Navbar = () => {
                 </Button>
               </SheetTrigger>
               
-              {/* z-[100] ensures the sheet sits on top of the navbar (which is z-50).
-                 bg-[#0a0a0a] matches your dark theme.
-              */}
               <SheetContent side="left" className="w-[300px] bg-[#0a0a0a] border-r border-white/10 text-white z-[100]">
                 <SheetHeader className="mb-8 text-left">
                   <SheetTitle>
-                    <Link to="/" className="flex items-center gap-2">
-                      <div className="bg-brand-purple/20 p-2 rounded-lg">
-                        <Shield className="w-5 h-5 text-brand-purple" />
-                      </div>
+                    <Link to="/" className="flex items-center gap-3">
+                      <img 
+                        src={logo} 
+                        alt="Logo" 
+                        className="h-10 w-auto object-contain" 
+                      />
                       <span className="font-display text-xl font-bold text-white">
                         Raksha<span className="text-brand-purple">Marg</span>
                       </span>
@@ -113,8 +120,6 @@ const Navbar = () => {
                       {item.name}
                     </Link>
                   ))}
-                  
-                  {/* Mobile CTA */}
                   <a 
                     href="https://dna-coded.github.io/About-Us/" 
                     target="_blank" 
