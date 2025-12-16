@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber';
-import { EffectComposer, Bloom, Noise, Vignette } from '@react-three/postprocessing';
+import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
 import { Environment } from '@react-three/drei';
 import { CityMap } from './3d/CityMap';
 import { SceneController } from './3d/SceneController';
@@ -28,8 +28,9 @@ export const Experience = () => {
         <EffectComposer disableNormalPass>
           {/* Intense Glow for the neon signs */}
           <Bloom luminanceThreshold={1.1} mipmapBlur intensity={0.8} radius={0.6} />
-          {/* Film Grain for texture */}
-          <Noise opacity={0.08} />
+          
+          {/* Film Grain removed to fix "old TV" pixel breaking effect */}
+          
           {/* Vignette to focus eyes on center */}
           <Vignette eskil={false} offset={0.1} darkness={0.6} />
         </EffectComposer>
