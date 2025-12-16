@@ -9,14 +9,21 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-// Ensure logo.png is exactly in frontend/src/assets/logo.png
 import logo from '@/assets/logo.png';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      // Check if window has scrolled more than 20px
+      if (window.scrollY > 20) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -25,7 +32,7 @@ const Navbar = () => {
     { name: 'Home', path: '/' },
     { name: 'Check Route', path: '/check-route' },
     { name: 'How It Works', path: '/#how-it-works' },
-    { name: 'Inspiration', path: '#' },
+    { name: 'Inspiration', path: '/inspiration' },
   ];
 
   return (
@@ -35,21 +42,17 @@ const Navbar = () => {
       <div className="container px-4">
         <div className={`mx-auto max-w-7xl rounded-full transition-all duration-500 px-6 h-16 flex items-center justify-between ${
           isScrolled 
-            ? 'bg-brand-dark/80 backdrop-blur-xl border border-white/10 shadow-lg' 
+            ? 'bg-[#0b0614]/80 backdrop-blur-xl border border-white/10 shadow-lg' 
             : 'bg-transparent'
         }`}>
           
           {/* --- LOGO SECTION --- */}
           <Link to="/" className="flex items-center gap-3">
-            {/* Logo Image */}
             <img 
               src={logo} 
               alt="Logo" 
               className="h-10 w-auto object-contain" 
             />
-            
-            {/* Text restored so it is visible. 
-                No background color wrapper is used here. */}
             <span className="font-display text-xl font-bold text-white">
               Raksha<span className="text-brand-purple">Marg</span>
             </span>
@@ -62,9 +65,6 @@ const Navbar = () => {
                 key={item.name}
                 to={item.path}
                 className="text-sm font-medium text-white/70 hover:text-white transition-colors"
-                onClick={(e) => {
-                  if (item.path === '#') e.preventDefault();
-                }}
               >
                 {item.name}
               </Link>
