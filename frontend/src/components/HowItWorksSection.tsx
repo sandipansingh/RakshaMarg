@@ -1,95 +1,72 @@
-import React from 'react';
-import { 
-  MapPin, 
-  ShieldCheck, 
-  Bell, 
-  Navigation,
-  Smartphone,
-  Users
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import React, { useRef } from 'react';
+import { MapPin, Navigation, Search, CheckCircle, ArrowRight } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const steps = [
-  {
-    icon: MapPin,
-    title: "Enter Your Destination",
-    desc: "Input your start and end points. Our system instantly analyzes multiple route options based on real-time safety data."
-  },
-  {
-    icon: ShieldCheck,
-    title: "Safety Analysis",
-    desc: "Our AI evaluates street lighting, police presence, crowd density, and historical incident reports to score each route."
-  },
-  {
-    icon: Navigation,
-    title: "Choose Safest Path",
-    desc: "Select the route with the highest 'Safety Score'. We highlight safe zones like 24/7 shops and police stations along the way."
-  },
-  {
-    icon: Bell,
-    title: "Real-Time Alerts",
-    desc: "Get notified if you deviate from the safe path. In emergencies, a single tap alerts your trusted contacts and nearby authorities."
-  }
+  { icon: MapPin, step: '01', title: 'Start', desc: 'Input your current location.' },
+  { icon: Navigation, step: '02', title: 'End', desc: 'Set your destination.' },
+  { icon: Search, step: '03', title: 'Scan', desc: 'AI analyzes 50+ risk factors.' },
+  { icon: CheckCircle, step: '04', title: 'Go', desc: 'Follow the illuminated path.' },
 ];
 
 const HowItWorksSection = () => {
+  const targetRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: targetRef });
+  
+  // Slide panels to the left as we scroll down
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-60%"]);
+  
+  // NEW: Fade out the Title as the cards approach
+  // Opacity goes from 1 to 0 within the first 15% of the scroll
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+  // Slide the title to the left/fade back to create a motion exit
+  const titleX = useTransform(scrollYProgress, [0, 0.15], ["0%", "-20%"]);
+
   return (
-    // ADDED id="how-it-works" HERE
-    <section id="how-it-works" className="py-24 relative overflow-hidden bg-brand-dark">
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(45,212,191,0.05),transparent_40%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(138,44,255,0.05),transparent_40%)]" />
+    <section ref={targetRef} className="relative h-[300vh] bg-brand-dark">
+      
+      {/* Sticky Viewport */}
+      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+        
+        {/* Background Gradient */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-purple/10 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="container px-4 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-brand-teal text-xs font-bold tracking-widest uppercase mb-6">
-            <Smartphone className="w-3 h-3" />
-            <span>Simple & Effective</span>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-display">
-            Master Your <span className="text-brand-purple">Safety</span>
-          </h2>
-          <p className="text-lg text-white/60 leading-relaxed">
-            Complex safety data turned into simple, actionable guidance. 
-            RakshaMarg makes navigating the city as easy as following a green line.
+        {/* Dynamic Title (Left) - Now Fades Out */}
+        <motion.div 
+          style={{ opacity: titleOpacity, x: titleX }}
+          className="absolute left-8 lg:left-20 top-1/2 -translate-y-1/2 z-20 max-w-sm p-8"
+        >
+          <div className="text-brand-teal font-mono text-sm mb-4 tracking-widest">SYSTEM_PROCESS</div>
+          <h2 className="font-display text-6xl font-bold mb-6 text-white leading-tight">How It<br/>Works</h2>
+          <p className="text-white/50 text-lg mb-8">
+            An intelligent workflow designed for speed and safety.
           </p>
-        </div>
+          <div className="flex items-center gap-2 text-brand-purple animate-pulse">
+            <span className="text-xs font-bold uppercase tracking-widest">Scroll Down</span>
+            <ArrowRight className="w-4 h-4 rotate-90" />
+          </div>
+        </motion.div>
 
-        {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {steps.map((step, index) => (
+        {/* Moving Cards Track */}
+        <motion.div style={{ x }} className="flex gap-8 pl-[600px] items-center"> 
+          {steps.map((step, i) => (
             <div 
-              key={index}
-              className="relative group p-8 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 hover:-translate-y-2"
+              key={i} 
+              className="relative h-[450px] w-[350px] shrink-0 rounded-[2rem] bg-white/5 border border-white/10 p-10 flex flex-col justify-end backdrop-blur-md transition-all hover:bg-white/10 hover:border-brand-teal/30 group"
             >
-              <div className="absolute -top-6 left-8 w-12 h-12 bg-brand-dark border border-white/10 rounded-xl flex items-center justify-center text-xl font-bold text-white/30 group-hover:text-brand-purple group-hover:border-brand-purple/50 transition-colors shadow-lg">
-                {index + 1}
+              <div className="absolute top-8 right-8 text-8xl font-bold text-white/5 font-display group-hover:text-brand-teal/10 transition-colors">
+                {step.step}
               </div>
-              
-              <div className="mt-6 mb-6 w-14 h-14 rounded-full bg-brand-purple/10 flex items-center justify-center text-brand-purple group-hover:scale-110 transition-transform duration-300">
-                <step.icon className="w-7 h-7" />
+              <div className="mb-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-purple to-brand-dark flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
+                <step.icon className="w-8 h-8 text-white" />
               </div>
-              
-              <h3 className="text-xl font-bold text-white mb-4 group-hover:text-brand-teal transition-colors">
-                {step.title}
-              </h3>
-              
-              <p className="text-white/50 text-sm leading-relaxed">
-                {step.desc}
-              </p>
+              <h3 className="text-4xl font-bold text-white mb-4">{step.title}</h3>
+              <p className="text-white/60 text-lg">{step.desc}</p>
             </div>
           ))}
-        </div>
-
-        {/* CTA */}
-        <div className="mt-20 text-center">
-          <Link to="/check-route">
-            <Button size="lg" className="rounded-full bg-white text-brand-dark hover:bg-brand-teal hover:text-white font-semibold px-8 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-              Try It Now
-            </Button>
-          </Link>
-        </div>
+          {/* Spacer */}
+          <div className="w-[200px]" /> 
+        </motion.div>
       </div>
     </section>
   );

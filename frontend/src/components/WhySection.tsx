@@ -22,7 +22,8 @@ const features = [
     icon: Target,
     title: 'Precision Data',
     description: 'Street-level lighting and crowd density visualization.',
-    className: "md:col-span-1 md:row-span-2 bg-brand-teal/10 border-brand-teal/20", 
+    // CHANGED: md:row-span-2 -> md:row-span-1
+    className: "md:col-span-1 md:row-span-1 bg-brand-teal/10 border-brand-teal/20", 
     iconClass: "text-brand-teal"
   },
   {
@@ -31,13 +32,6 @@ const features = [
     description: 'Community-verified safety reports ensure you never walk alone.',
     className: "md:col-span-2 md:row-span-1 bg-brand-dark border-white/5",
     iconClass: "text-white"
-  },
-  {
-    icon: Sparkles,
-    title: 'UX First',
-    description: 'Zero clutter.',
-    className: "md:col-span-1 md:row-span-1 bg-brand-dark border-white/5",
-    iconClass: "text-brand-purple"
   },
 ];
 

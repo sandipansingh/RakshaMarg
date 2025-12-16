@@ -32,7 +32,7 @@ const HeroSection = () => {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   return (
-    <section ref={ref} className="relative h-screen w-full overflow-hidden bg-brand-dark">
+    <section ref={ref} className="relative h-screen w-full overflow-hidden bg-transparent">
       
       {/* --- LAYER 1: CINEMATIC BACKGROUND --- */}
       <motion.div style={{ y: backgroundY }} className="absolute inset-0 z-0">
@@ -41,11 +41,14 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-brand-dark/30 mix-blend-multiply z-10" />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent z-20" />
         
-        {/* MAP IMAGE */}
-        <img 
+        {/* MAP IMAGE - Loads faster with less scale animation */}
+        <motion.img 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.6 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
           src={mapBg} 
           alt="Safety Map Background" 
-          className="w-full h-full object-cover opacity-60 grayscale-[100%] contrast-[1.25] brightness-75" 
+          className="w-full h-full object-cover grayscale-[100%] contrast-[1.25] brightness-75" 
         />
         
         {/* SCANNING RADAR EFFECT */}
@@ -57,7 +60,12 @@ const HeroSection = () => {
       </motion.div>
 
       {/* --- LAYER 2: GRID OVERLAY --- */}
-      <div className="absolute inset-0 z-10 opacity-20 pointer-events-none">
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        className="absolute inset-0 z-10 opacity-20 pointer-events-none"
+      >
         <div 
           className="w-full h-full" 
           style={{ 
@@ -65,21 +73,17 @@ const HeroSection = () => {
             backgroundSize: '80px 80px' 
           }} 
         />
-      </div>
+      </motion.div>
 
       {/* --- LAYER 3: MAIN CONTENT (Bottom Left) --- */}
       <div className="absolute bottom-0 left-0 z-30 w-full p-6 md:p-20 pb-12 md:pb-24">
-        {/* FIX APPLIED HERE: 
-            Added lg:max-w-[55%] to ensure text stays on the left half 
-            on laptop screens (lg/xl) where the box is visible.
-        */}
         <div className="max-w-5xl lg:max-w-[55%] xl:max-w-[65%] 2xl:max-w-5xl transition-all duration-300">
           
-          {/* Glowing Badge */}
+          {/* Glowing Badge - Immediate entry (0.1s delay) */}
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
+            transition={{ delay: 0.1, duration: 0.5, ease: "easeOut" }}
             className="flex items-center gap-3 mb-6 md:mb-8"
           >
             <div className="flex items-center gap-2 px-3 py-1 md:px-4 md:py-2 bg-brand-purple/10 backdrop-blur-md border border-brand-purple/30 rounded-full text-brand-purple shadow-[0_0_15px_rgba(99,102,241,0.3)]">
@@ -88,18 +92,12 @@ const HeroSection = () => {
             </div>
           </motion.div>
 
-          {/* Title - RESPONSIVE SIZES FIXED */}
+          {/* Title - Fast spring animation */}
           <div className="overflow-hidden mb-4 md:mb-6 pb-2 md:pb-4">
-            {/* FIX EXPLANATION:
-                md:text-[9rem] was too big for laptops when the box appeared.
-                - lg:text-[6rem]: Shrinks text on 13" laptops (1024px-1280px)
-                - xl:text-[7.5rem]: Slightly larger on 14"-15" laptops
-                - 2xl:text-[9rem]: Back to massive size on Desktops
-            */}
             <motion.h1 
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
-              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
               className="font-display text-5xl sm:text-7xl md:text-[9rem] lg:text-[6rem] xl:text-[7.5rem] 2xl:text-[9rem] font-bold text-white leading-[0.9] tracking-tighter transition-all duration-300"
             >
               Raksha<span className="text-brand-purple">Marg</span>
@@ -107,20 +105,22 @@ const HeroSection = () => {
           </div>
           
           <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-start md:items-end">
+            {/* Description - 0.2s delay */}
             <motion.p 
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
               className="text-base md:text-xl text-white/70 max-w-lg font-light leading-relaxed border-l-2 border-brand-teal/50 pl-4 md:pl-6"
             >
                Navigate the night with intelligence. Real-time route analysis, 
                predictive safety scoring, and a community watching over you.
             </motion.p>
 
+            {/* Button - 0.3s delay */}
             <motion.div 
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1, duration: 0.5 }}
+              transition={{ delay: 0.3, duration: 0.4, type: "spring" }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -141,15 +141,11 @@ const HeroSection = () => {
       </div>
 
       {/* --- LAYER 4: FLOATING HUD & IMAGES (Right Side) --- */}
-      {/* FIX APPLIED HERE:
-          - lg:scale-75: Shrink box to 75% on 13" laptops
-          - xl:scale-90: Shrink box to 90% on larger laptops
-          - lg:origin-bottom-right: Ensures it shrinks away from the center text
-      */}
+      {/* HUD - 0.4s delay (was 1.5s) */}
       <motion.div 
-        initial={{ opacity: 0, x: 50 }}
+        initial={{ opacity: 0, x: 30 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 1.5, duration: 1 }}
+        transition={{ delay: 0.4, duration: 0.6, ease: "easeOut" }}
         className="absolute bottom-24 right-8 md:right-20 lg:right-12 xl:right-20 z-30 hidden lg:flex flex-col gap-6 lg:scale-75 xl:scale-90 2xl:scale-100 lg:origin-bottom-right transition-transform duration-300"
       >
         {/* 1. Secured Personnel Card */}
@@ -195,10 +191,11 @@ const HeroSection = () => {
             </div>
           </div>
           <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+             {/* Progress Bar - 0.6s delay (was 2.0s) */}
              <motion.div 
                initial={{ width: 0 }}
                animate={{ width: "94%" }}
-               transition={{ delay: 2, duration: 1.5, ease: "circOut" }}
+               transition={{ delay: 0.6, duration: 1.0, ease: "circOut" }}
                className="h-full bg-brand-teal shadow-[0_0_10px_#2dd4bf]" 
              />
           </div>
