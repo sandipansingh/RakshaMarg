@@ -36,17 +36,12 @@ const TrustSection = () => {
 
           {/* Quote */}
           <blockquote className="font-display text-2xl md:text-4xl font-semibold mb-6 leading-relaxed">
-            "Technology for Protection, Not Fear"
+            "Confidence in every step - RakshaMarg"
           </blockquote>
 
           <p className="text-lg md:text-xl opacity-90 mb-8 max-w-2xl mx-auto">
             RakshaMarg is committed to creating a world where every woman can travel with dignity, 
             confidence, and complete awareness of her surroundings.
-          </p>
-
-          <p className="text-base opacity-80 mb-10 max-w-xl mx-auto">
-            We believe that safety begins with knowledge. Our mission is to empower, not alarm — 
-            to inform, not frighten. Together, we can make every journey a safe one.
           </p>
 
           {/* CTA */}
