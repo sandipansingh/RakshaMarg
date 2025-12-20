@@ -4,8 +4,8 @@ import { config } from '../config/env.js';
 let model;
 
 if (config.geminiApiKey) {
-    const genAI = new GoogleGenerativeAI(config.geminiApiKey);
-    model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
+  const genAI = new GoogleGenerativeAI(config.geminiApiKey);
+  model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
 }
 
 const machineContext = `
@@ -85,19 +85,19 @@ FALLBACK RESPONSE (MANDATORY ON FAILURE):
 `;
 
 export const geminiService = {
-    async analyzeSafety(routeData, crimeData = {}) {
-        if (!model) {
-            console.warn('Gemini API Key missing, skipping analysis');
-            return {
-                safetyScore: 50,
-                safetyColor: 'grey',
-                warnings: ['Analysis unavailable (API Key missing)'],
-                modelUsed: 'fallback'
-            };
-        }
+  async analyzeSafety(routeData, crimeData = {}) {
+    if (!model) {
+      console.warn('Gemini API Key missing, skipping analysis');
+      return {
+        safetyScore: 50,
+        safetyColor: 'grey',
+        warnings: ['Analysis unavailable (API Key missing)'],
+        modelUsed: 'fallback'
+      };
+    }
 
-        // Prompt engineering to analyze safety
-        const prompt = `
+    // Prompt engineering to analyze safety
+    const prompt = `
         Machine Context: ${JSON.stringify(machineContext)}
       Analyze public safety incidents relevant to the following route corridor
 using recent publicly available reports.
@@ -110,43 +110,43 @@ using recent publicly available reports.
       
     `;
 
-        try {
-            const result = await model.generateContent({
-                contents: [{ role: "user", parts: [{ text: prompt }] }],
-                tools: [{ googleSearch: {} }]
-            });
-            const response = await result.response;
-            let text = response.text();
+    try {
+      const result = await model.generateContent({
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        tools: [{ googleSearch: {} }]
+      });
+      const response = await result.response;
+      let text = response.text();
 
-            // Clean up markdown code blocks if present
-            text = text.replace(/```json/g, '').replace(/```/g, '').trim();
+      // Clean up markdown code blocks if present
+      text = text.replace(/```json/g, '').replace(/```/g, '').trim();
 
-            // Extract JSON object if there is extra text
-            const firstBrace = text.indexOf('{');
-            const lastBrace = text.lastIndexOf('}');
+      // Extract JSON object if there is extra text
+      const firstBrace = text.indexOf('{');
+      const lastBrace = text.lastIndexOf('}');
 
-            if (firstBrace !== -1 && lastBrace !== -1) {
-                text = text.substring(firstBrace, lastBrace + 1);
-            }
+      if (firstBrace !== -1 && lastBrace !== -1) {
+        text = text.substring(firstBrace, lastBrace + 1);
+      }
 
-            const data = JSON.parse(text);
+      const data = JSON.parse(text);
 
-            // Inject metadata
-            data.modelUsed = 'gemini-2.5-flash';
+      // Inject metadata
+      data.modelUsed = 'gemini-2.5-flash';
 
-            return data;
-        } catch (error) {
-            console.error('Gemini API Error:', error);
-            return {
-                safetyScore: 50,
-                safetyColor: 'grey',
-                safetyAnalysis: {
-                    riskFactors: ["Error analyzing route"],
-                    friendlyTips: [],
-                    explanation: "Service temporarily unavailable: " + error.message
-                },
-                modelUsed: 'fallback-error'
-            };
-        }
+      return data;
+    } catch (error) {
+      console.error('Gemini API Error:', error);
+      return {
+        safetyScore: 50,
+        safetyColor: 'grey',
+        safetyAnalysis: {
+          riskFactors: ["Error analyzing route"],
+          friendlyTips: [],
+          explanation: "Service temporarily unavailable: " + error.message
+        },
+        modelUsed: 'fallback-error'
+      };
     }
+  }
 };
