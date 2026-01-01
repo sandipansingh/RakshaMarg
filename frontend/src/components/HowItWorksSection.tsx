@@ -37,13 +37,13 @@ const HowItWorksSection = () => {
   return (
     <section ref={targetRef} className="relative h-[300vh] bg-brand-dark">
 
-      { }
+
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
 
-        { }
+
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-purple/10 rounded-full blur-[120px] pointer-events-none" />
 
-        { }
+
         <motion.div
           style={{ opacity: titleOpacity, x: titleX }}
           className="absolute left-8 lg:left-20 top-1/2 -translate-y-1/2 z-20 max-w-sm p-8"
@@ -59,12 +59,12 @@ const HowItWorksSection = () => {
           </div>
         </motion.div>
 
-        { }
-        <motion.div style={{ x }} className="flex gap-8 pl-[600px] items-center">
+
+        <motion.div style={{ x }} className="flex gap-8 pl-[600px] items-center will-change-transform">
           {steps.map((step, i) => (
             <div
               key={i}
-              className="relative h-[450px] w-[350px] shrink-0 rounded-[2rem] bg-white/5 border border-white/10 p-10 flex flex-col justify-end backdrop-blur-md transition-all hover:bg-white/10 hover:border-brand-teal/30 group"
+              className="relative h-[450px] w-[350px] shrink-0 rounded-[2rem] bg-white/5 border border-white/10 p-10 flex flex-col justify-end backdrop-blur-md transition-colors hover:bg-white/10 hover:border-brand-teal/30 group"
             >
               <div className="absolute top-8 right-8 text-8xl font-bold text-white/5 font-display group-hover:text-brand-teal/10 transition-colors">
                 {step.step}
@@ -76,7 +76,7 @@ const HowItWorksSection = () => {
               <p className="text-white/60 text-lg">{step.desc}</p>
             </div>
           ))}
-          { }
+
           <div className="w-[200px]" />
         </motion.div>
       </div>

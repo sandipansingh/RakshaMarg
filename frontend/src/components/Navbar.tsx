@@ -36,15 +36,15 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'py-4' : 'py-6'
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-[padding] duration-500 ${isScrolled ? 'py-4' : 'py-6'
       }`}>
       <div className="container px-4">
-        <div className={`mx-auto max-w-7xl rounded-full transition-all duration-500 px-6 h-16 flex items-center justify-between ${isScrolled
+        <div className={`mx-auto max-w-7xl rounded-full transition-colors duration-500 px-6 h-16 flex items-center justify-between ${isScrolled
           ? 'bg-[#0b0614]/80 backdrop-blur-xl border border-white/10 shadow-lg'
           : 'bg-transparent'
           }`}>
 
-          { }
+
           <Link to="/" className="flex items-center gap-3">
             <img
               src={logo}
@@ -56,7 +56,7 @@ const Navbar = () => {
             </span>
           </Link>
 
-          { }
+
           <div className="hidden xl:flex items-center gap-8">
             {navItems.map((item) => (
               <Link
@@ -69,7 +69,7 @@ const Navbar = () => {
             ))}
           </div>
 
-          { }
+
           <div className="hidden xl:block">
             <a
               href="https://dna-coded.github.io/About-Us/"
@@ -82,7 +82,7 @@ const Navbar = () => {
             </a>
           </div>
 
-          { }
+
           <div className="xl:hidden">
             <Sheet>
               <SheetTrigger asChild>

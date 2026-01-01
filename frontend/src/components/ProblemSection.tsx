@@ -27,7 +27,7 @@ const problems = [
 const ProblemSection = () => {
   return (
     <section className="py-24 bg-card relative overflow-hidden">
-      {}
+      { }
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
           backgroundImage: `radial-gradient(circle at 2px 2px, hsl(var(--primary)) 1px, transparent 0)`,
@@ -52,7 +52,7 @@ const ProblemSection = () => {
           {problems.map((problem, index) => (
             <div
               key={problem.title}
-              className="group bg-background rounded-2xl p-6 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1"
+              className="group bg-background rounded-2xl p-6 shadow-card hover:shadow-elevated transition-[box-shadow,transform] duration-300 hover:-translate-y-1"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">

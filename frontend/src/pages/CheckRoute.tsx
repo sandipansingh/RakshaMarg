@@ -690,7 +690,7 @@ const CheckRoute = () => {
                   <div className="pt-4">
                     <Button
                       size="xl"
-                      className="w-full h-16 text-lg font-bold rounded-2xl bg-gradient-to-r from-brand-purple to-brand-teal text-white hover:opacity-90 transition-all shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_30px_rgba(45,212,191,0.4)]"
+                      className="w-full h-16 text-lg font-bold rounded-2xl bg-gradient-to-r from-brand-purple to-brand-teal text-white hover:opacity-90 transition-[opacity,box-shadow] shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_30px_rgba(45,212,191,0.4)]"
                       onClick={handleCheckRoute}
                       disabled={!fromLocation || !toLocation || isAnalyzing}
                     >

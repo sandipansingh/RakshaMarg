@@ -36,12 +36,12 @@ const Inspiration = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {casesData.map((item, index) => (
-            <div 
+            <div
               key={index}
-              className="group relative h-[450px] w-full overflow-hidden rounded-3xl bg-gray-900 border border-white/5 transition-all duration-500 hover:shadow-[0_0_40px_-10px_rgba(138,44,255,0.3)] hover:-translate-y-2"
+              className="group relative h-[450px] w-full overflow-hidden rounded-3xl bg-gray-900 border border-white/5 transition-[box-shadow,transform] duration-500 hover:shadow-[0_0_40px_-10px_rgba(138,44,255,0.3)] hover:-translate-y-2"
             >
-              <img 
-                src={item.img} 
+              <img
+                src={item.img}
                 alt={item.title}
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-30 grayscale group-hover:grayscale-0"
               />

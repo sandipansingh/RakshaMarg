@@ -51,7 +51,7 @@ const BentoCard = ({ feature, index }: { feature: Feature, index: number }) => (
     transition={{ duration: 0.5, delay: index * 0.1 }}
     whileHover={{ y: -5, boxShadow: "0 20px 40px -15px rgba(0,0,0,0.5)" }}
     className={cn(
-      "group relative p-8 rounded-3xl overflow-hidden backdrop-blur-sm border transition-all duration-300 flex flex-col justify-between",
+      "group relative p-8 rounded-3xl overflow-hidden backdrop-blur-sm border transition-colors duration-300 flex flex-col justify-between",
       feature.className
     )}
   >

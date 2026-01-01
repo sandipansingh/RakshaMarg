@@ -35,7 +35,7 @@ const HeroSection = () => {
   return (
     <section ref={ref} className="relative h-screen w-full overflow-hidden bg-transparent">
 
-      { }
+
       <motion.div style={{ y: backgroundY }} className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-brand-dark/30 mix-blend-multiply z-10" />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent z-20" />
@@ -56,7 +56,7 @@ const HeroSection = () => {
         />
       </motion.div>
 
-      { }
+
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -72,9 +72,9 @@ const HeroSection = () => {
         />
       </motion.div>
 
-      { }
+
       <div className="absolute bottom-0 left-0 z-30 w-full p-6 md:p-20 pb-12 md:pb-24">
-        <div className="max-w-5xl lg:max-w-[70%] xl:max-w-[65%] 2xl:max-w-5xl transition-all duration-300">
+        <div className="max-w-5xl lg:max-w-[70%] xl:max-w-[65%] 2xl:max-w-5xl">
 
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -93,7 +93,7 @@ const HeroSection = () => {
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-              className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-9xl font-bold text-white leading-[0.9] tracking-tighter transition-all duration-300"
+              className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-9xl font-bold text-white leading-[0.9] tracking-tighter"
             >
               Raksha<span className="text-brand-purple">Marg</span>
             </motion.h1>
@@ -120,7 +120,7 @@ const HeroSection = () => {
               <Link to="/check-route">
                 <Button
                   size="xl"
-                  className="h-14 md:h-20 px-6 md:px-10 rounded-full bg-brand-purple text-white hover:bg-brand-teal hover:text-brand-dark font-bold text-base md:text-lg shadow-[0_0_30px_rgba(99,102,241,0.4)] transition-all duration-500 group"
+                  className="h-14 md:h-20 px-6 md:px-10 rounded-full bg-brand-purple text-white hover:bg-brand-teal hover:text-brand-dark font-bold text-base md:text-lg shadow-[0_0_30px_rgba(99,102,241,0.4)] transition-colors duration-500 group"
                 >
                   Analyze Route
                   <div className="ml-3 w-8 h-8 md:w-10 md:h-10 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-brand-dark/20 transition-colors">
@@ -133,14 +133,14 @@ const HeroSection = () => {
         </div>
       </div>
 
-      { }
+
       <motion.div
         initial={{ opacity: 0, x: 30 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.4, duration: 0.6, ease: "easeOut" }}
         className="absolute bottom-24 right-8 md:right-20 lg:right-12 xl:right-20 z-30 hidden lg:flex flex-col gap-6 lg:scale-75 xl:scale-90 2xl:scale-100 lg:origin-bottom-right transition-transform duration-300"
       >
-        { }
+
         <div className="bg-white/5 border border-white/10 p-6 rounded-3xl w-72 backdrop-blur-2xl border-l-4 border-l-brand-purple">
           <div className="flex items-center gap-4 mb-4">
             <div className="relative w-12 h-12 flex items-center justify-center">
@@ -171,7 +171,7 @@ const HeroSection = () => {
           </div>
         </div>
 
-        { }
+
         <div className="bg-white/5 border border-white/10 p-6 rounded-3xl w-72 backdrop-blur-2xl border-l-4 border-l-brand-teal">
           <div className="flex items-center gap-4 mb-4">
             { }
