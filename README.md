@@ -19,11 +19,9 @@
 
 ## Inspiration
 
-We've all been there—walking home late at night, clutching our phones, hyper-aware of every shadow. Most navigation apps tell you the *fastest* route, sending you down dark alleys or desolate streets just to save a minute.
-
-We asked ourselves: **Why isn't there a map that cares about your safety as much as your time?**
-
-That's why we built **RakshaMarg**. It's not just a navigation tool; it's a companion that guides you through the safest, most well-lit, and populated paths. Because arriving safely is more important than arriving early.
+*   **The Problem**: Standard maps prioritize speed, often routing pedestrians through dark, unsafe alleys to save a minute.
+*   **The Gap**: Lack of navigation tools that account for personal safety, lighting, and crime data.
+*   **Our Solution**: RakshaMarg - "Navigation with a Conscience". We prioritize **Safety Corridors** (well-lit, populated) over pure distance.
 
 ## What it does
 
@@ -35,30 +33,32 @@ RakshaMarg is an intelligent safety-first navigation system.
 *   **SOS Button**: A single tap instantly alerts your emergency contacts with your precise location.
 *   **Safe Zones**: Automatically highlights nearby police stations, hospitals, and 24/7 open establishments along your route.
 
+## Potential Impact
+
+*   **Crime Prevention**: Proactively steering users away from high-risk zones reduces opportunity for incidents.
+*   **Public Safety**: Aggregating lighting/crime data helps authorities identify and fix "dark spots".
+*   **Peace of Mind**: Reducing anxiety for late-night commuters through trusted routing and SOS features.
+
 ## Google Tech Used
 
-RakshaMarg harnesses the power of Google's advanced technologies to deliver safety and intelligence:
+*   **Maps API**: Core interactive mapping interface.
+*   **Directions API**: Precision routing engine.
+*   **Gemini API**: AI-driven safety scoring & fallback logic.
 
-*   **Google Maps API**: Serves as the foundation for the interactive map and location services.
-*   **Google Directions API**: Calculates precise routes and navigation paths between locations.
-*   **Gemini API**: Powers the advanced crime risk analysis algorithms and provides intelligent fallback logic for safety scoring when data is sparse.
+## Technical Implementation
 
-## How we built it
+**Frontend (Robust & Interactive)**
+*   **React + TypeScript**: Type-safe, component-based UI.
+*   **Three.js**: High-performance 3D map rendering.
+*   **Vite**: Optimized build toolchain.
 
-We built RakshaMarg using a modern, scalable tech stack:
+**Backend (Scalable & fast)**
+*   **Node.js + Fastify**: Low-overhead, high-concurrency API handling.
+*   **Scalable Architecture**: Modular design separating routing, safety analysis, and user services.
 
-### Frontend
-*   **React + TypeScript**: For a robust and type-safe UI.
-*   **Vite**: For lightning-fast development and building.
-*   **Tailwind CSS + Shadcn UI**: For a sleek, accessible, and responsive design.
-*   **Three.js (@react-three/fiber)**: To create an immersive 3D map experience.
-*   **Google Maps Platform**: The core engine for routing and geolocation.
-
-### Backend
-*   **Node.js**: As the runtime environment.
-*   **Fastify**: High-performance web framework for the API.
-*   **Google Generative AI (Gemini)**: For processing and analyzing safety data.
-*   **Google Maps Services**: For server-side routing and geocoding.
+**Data & AI (The Intelligence)**
+*   **Google Maps Platform**: Enterprise-grade location data foundation.
+*   **Gemini AI**: Advanced reasoning for risk scoring (processing crime stats + environmental factors).
 
 ## Challenges we ran into
 
