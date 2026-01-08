@@ -33,6 +33,27 @@ RakshaMarg is an intelligent safety-first navigation system.
 *   **SOS Button**: A single tap instantly alerts your emergency contacts with your precise location.
 *   **Safe Zones**: Automatically highlights nearby police stations, hospitals, and 24/7 open establishments along your route.
 
+### User Safety Workflow
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant App as RakshaMarg App
+    participant System as Intelligent Backend
+    
+    User->>App: Enters Destination
+    App->>System: Request Routes
+    System->>System: Analyze Safety (lighting, crime, crowd)
+    System-->>App: Returns 3 Route Options (Safest Highlighted)
+    User->>App: Selects "Safety Corridor"
+    App->>User: Starts Navigation + Live Tracking
+    
+    opt Emergency Suspicion
+        User->>App: Hits SOS
+        App->>User: Alerts Contacts + Police
+    end
+```
+
 ## Potential Impact
 
 *   **Crime Prevention**: Proactively steering users away from high-risk zones reduces opportunity for incidents.
@@ -46,6 +67,27 @@ RakshaMarg is an intelligent safety-first navigation system.
 *   **Gemini API**: AI-driven safety scoring & fallback logic.
 
 ## Technical Implementation
+
+### System Architecture
+
+```mermaid
+graph TD
+    User[User] -->|Interacts| Frontend[React + Vite Frontend]
+    Frontend -->|API Calls| Backend[Node.js + Fastify Backend]
+    
+    subgraph Google Cloud Services
+        Backend -->|Routing Data| Maps[Google Maps Platform]
+        Backend -->|Risk Analysis| Gemini[Gemini AI]
+    end
+    
+    subgraph External Data
+        Backend -->|Incident Reports| SafeCity[Safecity API]
+    end
+    
+    Gemini -->|Safety Scores| Backend
+    Maps -->|Routes & traffic| Backend
+    Backend -->|Optimized Safe Path| Frontend
+```
 
 **Frontend (Robust & Interactive)**
 *   **React + TypeScript**: Type-safe, component-based UI.
