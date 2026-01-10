@@ -1,2 +1,2 @@
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api/v1/navigation';
-export const API_KEY = 'rakshamarg-dwklhfdewhff-efjjefwoihjfohgn';
+export const API_BASE_URL = process.env.API_BASE_URL+'/api/v1/navigation';
+export const API_KEY = process.env.API_KEY;
