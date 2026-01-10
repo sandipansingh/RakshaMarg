@@ -1,4 +1,4 @@
-import { buildApp } from '../src/app.js';
+import { buildApp } from '../backend/app.js';
 
 const app = await buildApp();
 await app.ready();
