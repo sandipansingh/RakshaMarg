@@ -660,7 +660,7 @@ const CheckRoute = () => {
         {isLoaded && directionsResponse ? (
           <GoogleMap
             mapContainerStyle={{ width: '100%', height: '100%' }}
-            center={{ lat: 28.6139, lng: 77.2090 }} // New Delhi Default
+            // center={{ lat: 28.6139, lng: 77.2090 }} // New Delhi Default - REMOVED to prevent reset on re-render
             zoom={12}
             onLoad={onLoad}
             onUnmount={onUnmount}
