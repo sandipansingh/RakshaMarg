@@ -611,14 +611,3 @@ cors: {
 All API requests are logged using Fastify's built-in logger (Pino).
 
 ---
-
-## Support
-
-For issues or questions:
-- GitHub: [Your Repository]
-- Email: support@rakshamarg.com
-
----
-
-**Last Updated:** December 31, 2025  
-**API Version:** 1.0.0
