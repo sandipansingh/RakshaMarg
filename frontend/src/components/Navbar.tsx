@@ -72,7 +72,7 @@ const Navbar = () => {
 
           <div className="hidden xl:block">
             <a
-              href="https://dna-coded.github.io/About-Us/"
+              href="https://dna-coded.github.io/About_DNA_Coded/"
               target="_blank"
               rel="noopener noreferrer"
             >
